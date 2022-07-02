@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import random
 import csv
 
+#loading data from csv and creating necessary matrices
 j=0
 dataMatrix=np.ones((100,3))
 feature_set=np.ones((100,3))
@@ -19,6 +20,7 @@ feature_set[:,2]=feature_set[:,0]*feature_set[:,1]
 labels=dataMatrix[:,2]
 labels=labels.reshape((100,1))
 
+#feature scaling
 m=len(feature_set)
 avg=(1/m)*np.sum(feature_set,axis=0)
 rng=np.amax(feature_set,axis=0)-np.amin(feature_set,axis=0)
@@ -28,9 +30,11 @@ feature_set=feature_set.reshape((100,4))
 iterNo=200
 cost_history=np.ones((iterNo,2))
 
-
+#sigmoid activation function
 def sigmoid(x):
     return 1/(1+np.exp(-x))
+
+#gradient descent
 def gradient_descent():
     global theta
     random.seed(42)
@@ -45,6 +49,8 @@ def gradient_descent():
         theta=theta-(learning_rate/m)*(np.dot(np.transpose(feature_set),error))
     print("Theta is:",theta)
     print("Cost is:",cost)
+
+#predicts output based on the given input
 def predict():
     global student
     global output
@@ -59,6 +65,8 @@ def predict():
         print("Will Pass")
     else:
         print("Will Not Pass")
+
+#produces required graphs of hypothesis, cost vs iteration and decision boundary
 def plotGraphs():
     x=np.linspace(-0.5,0.5,100)
     x=x.reshape((100,1))
